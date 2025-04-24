@@ -1,17 +1,519 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Container Living Col | Muebles Industriales a Medida</title>
     <meta name="description" content="Diseño y fabricación de muebles industriales a medida en Bogotá. Combinamos acero y madera para crear piezas únicas con estilo y calidad.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/keen-slider@6.8.6/keen-slider.min.css">
+    <style>
+        :root {
+            --primary: #d97706;
+            --primary-hover: #b45309;
+            --bg-dark: #171717;
+            --bg-darker: #0a0a0a;
+            --text-gray: #d1d1d1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #fff;
+            background-color: var(--bg-dark);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(8px);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            height: 80px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            text-transform: capitalize;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        .menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+            font-size: 24px;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 100px;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.95);
+            padding: 20px;
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            transform: translateY(0);
+        }
+
+        .mobile-menu a {
+            display: block;
+            padding: 15px 0;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mobile-menu a:last-child {
+            border-bottom: none;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://raw.githubusercontent.com/Containerliving/Home/refs/heads/main/ChatGPT%20Image%2023%20abr%202025%2C%2018_41_06.png');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 4vw, 1.5rem);
+            color: var(--text-gray);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: var(--primary);
+            color: black;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .products {
+            padding: 100px 0;
+            background-color: var(--bg-darker);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 0 20px;
+        }
+
+        .section-title h2 {
+            font-size: clamp(2rem, 5vw, 2.5rem);
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            color: var(--text-gray);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: clamp(1rem, 3vw, 1.2rem);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            padding: 0 20px;
+        }
+
+        .product-card {
+            background-color: #262626;
+            border-radius: 4px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-info h3 {
+            color: var(--primary);
+            font-size: clamp(1.2rem, 4vw, 1.5rem);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-info p {
+            color: var(--text-gray);
+            font-size: clamp(0.9rem, 3vw, 1rem);
+        }
+
+        .gallery {
+            padding: 100px 0;
+            background-color: var(--bg-dark);
+        }
+
+        .keen-slider {
+            height: clamp(250px, 50vw, 400px);
+        }
+
+        .keen-slider__slide {
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        .keen-slider__slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .keen-slider__slide:hover img {
+            transform: scale(1.1);
+        }
+
+        .contact {
+            padding: 100px 0;
+            background-color: var(--bg-darker);
+            text-align: center;
+        }
+
+        .whatsapp-btn {
+            background-color: #25D366;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+        }
+
+        .whatsapp-btn:hover {
+            background-color: #128C7E;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        footer {
+            background-color: black;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        footer p {
+            color: #666;
+            font-size: clamp(0.8rem, 2.5vw, 1rem);
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0 20px;
+            }
+            
+            nav {
+                display: none;
+            }
+            
+            .menu-btn {
+                display: block;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .logo {
+                height: 60px;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .product-card {
+                margin: 0 auto;
+                max-width: 400px;
+            }
+            
+            .section-title {
+                margin-bottom: 2rem;
+            }
+            
+            .keen-slider {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding-top: 60px;
+            }
+            
+            .btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+            }
+            
+            .product-card img {
+                height: 200px;
+            }
+            
+            .keen-slider {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <img src="https://raw.githubusercontent.com/Containerliving/Home/refs/heads/main/ChatGPT%20Image%2023%20abr%202025%2C%2019_47_57.png" alt="Container Living Col" class="logo">
+            <nav>
+                <a href="#productos">Productos</a>
+                <a href="#galeria">Galería</a>
+                <a href="#contacto">Contacto</a>
+            </nav>
+            <button class="menu-btn">☰</button>
+        </div>
+        <div class="mobile-menu">
+            <a href="#productos">Productos</a>
+            <a href="#galeria">Galería</a>
+            <a href="#contacto">Contacto</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Diseño industrial<br>hecho a medida</h1>
+            <p>Exclusividad, calidad y estilo colombiano en cada pieza.</p>
+            <a href="https://wa.me/573506632219" class="btn" target="_blank" rel="noopener noreferrer">
+                Solicitar cotización
+            </a>
+        </div>
+    </section>
+
+    <section id="productos" class="products">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nuestros Productos</h2>
+                <p>Diseños únicos que combinan la durabilidad del metal con la calidez de la madera.</p>
+            </div>
+            <div class="products-grid">
+                <div class="product-card">
+                    <img src="https://raw.githubusercontent.com/Containerliving/Home/refs/heads/main/ChatGPT%20Image%2023%20abr%202025%2C%2018_29_35.png" alt="Cavas personalizadas">
+                    <div class="product-info">
+                        <h3>Cavas personalizadas</h3>
+                        <p>Colores personalizados</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://raw.githubusercontent.com/Containerliving/Home/refs/heads/main/ChatGPT%20Image%2023%20abr%202025%2C%2019_53_09.png" alt="Camas personalizadas">
+                    <div class="product-info">
+                        <h3>Camas personalizadas</h3>
+                        <p>Variedad de usos y combinaciones</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://raw.githubusercontent.com/Containerliving/Home/refs/heads/main/ChatGPT%20Image%2023%20abr%202025%2C%2018_43_39.png" alt="Clossets tipo industrial">
+                    <div class="product-info">
+                        <h3>Clossets tipo industrial</h3>
+                        <p>Puertas de vidrio o metálicas con estantes modulares</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://raw.githubusercontent.com/Containerliving/Home/refs/heads/main/ChatGPT%20Image%2023%20abr%202025%2C%2018_56_29.png" alt="Proyectos personalizados">
+                    <div class="product-info">
+                        <h3>Proyectos personalizados</h3>
+                        <p>Ajustados a cada espacio o proyecto</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="galeria" class="gallery">
+        <div class="container">
+            <div class="section-title">
+                <h2>Galería de Proyectos</h2>
+            </div>
+            <div class="keen-slider">
+                <div class="keen-slider__slide">
+                    <img src="https://raw.githubusercontent.com/Containerliving/Home/refs/heads/main/429312004_412011057879405_8657939770999396299_n.jpg" alt="Proyecto 1">
+                </div>
+                <div class="keen-slider__slide">
+                    <img src="https://raw.githubusercontent.com/Containerliving/Home/refs/heads/main/429313227_411842561322169_65298587397722124_n.jpg" alt="Proyecto 2">
+                </div>
+                <div class="keen-slider__slide">
+                    <img src="https://raw.githubusercontent.com/Containerliving/Home/refs/heads/main/429352091_765387432156632_2526043546644113710_n.jpg" alt="Proyecto 3">
+                </div>
+                <div class="keen-slider__slide">
+                    <img src="https://raw.githubusercontent.com/Containerliving/Home/refs/heads/main/429637188_364169366537524_8893951337333601524_n.jpg" alt="Proyecto 4">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" class="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>¿Tenés un proyecto en mente?</h2>
+                <p>Contactanos por WhatsApp y te ayudamos a hacerlo realidad</p>
+            </div>
+            <a href="https://wa.me/573506632219" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">
+                Contactar por WhatsApp
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 Container Living Col · Bogotá, Colombia</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/keen-slider@6.8.6/keen-slider.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Menú móvil
+            const menuBtn = document.querySelector('.menu-btn');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const mobileLinks = document.querySelectorAll('.mobile-menu a');
+
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('active');
+                menuBtn.textContent = mobileMenu.classList.contains('active') ? '✕' : '☰';
+            });
+
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.remove('active');
+                    menuBtn.textContent = '☰';
+                });
+            });
+
+            // Keen Slider
+            new KeenSlider('.keen-slider', {
+                loop: true,
+                mode: "snap",
+                slides: {
+                    perView: 3,
+                    spacing: 16,
+                },
+                breakpoints: {
+                    '(max-width: 768px)': {
+                        slides: { perView: 1 }
+                    },
+                    '(max-width: 1024px)': {
+                        slides: { perView: 2 }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
 </html>
