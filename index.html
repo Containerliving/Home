@@ -1,157 +1,29 @@
-<!DOCTYPE html>
-<html lang="es">
-<!-- Manteniendo el head igual hasta los estilos -->
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Container Living Col | Muebles Industriales a Medida</title>
-    <meta name="description" content="Diseño y fabricación de muebles industriales a medida en Bogotá. Combinamos acero y madera para crear piezas únicas con estilo y calidad.">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/keen-slider@6.8.6/keen-slider.min.css">
-    <style>
-        /* Manteniendo todos los estilos anteriores y modificando solo los relevantes */
-        :root {
-            --primary: #d97706;
-            --primary-hover: #b45309;
-            --bg-dark: #171717;
-            --bg-darker: #0a0a0a;
-            --text-gray: #d1d1d1;
-        }
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            scroll-behavior: smooth;
-        }
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            color: #fff;
-            background-color: var(--bg-dark);
-        }
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+::-webkit-scrollbar-track {
+  background: #262626;
+}
 
-        header {
-            background-color: rgba(0, 0, 0, 0.9);
-            backdrop-filter: blur(8px);
-            padding: 10px 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
+::-webkit-scrollbar-thumb {
+  background: #d97706;
+  border-radius: 4px;
+}
 
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
-        }
+::-webkit-scrollbar-thumb:hover {
+  background: #f59e0b;
+}
 
-        .logo {
-            height: 60px;
-            width: auto;
-            object-fit: contain;
-            transition: transform 0.3s ease;
-        }
+html {
+  scroll-behavior: smooth;
+}
 
-        @media (min-width: 768px) {
-            .logo {
-                height: 80px;
-            }
-            
-            header {
-                padding: 20px 0;
-            }
-        }
-
-        .logo:hover {
-            transform: scale(1.05);
-        }
-
-        /* Resto de los estilos sin cambios */
-        /* ... */
-
-        @media (max-width: 768px) {
-            .nav-container {
-                padding: 0 15px;
-            }
-            
-            nav {
-                display: none;
-            }
-            
-            .menu-btn {
-                display: block;
-            }
-            
-            .mobile-menu {
-                display: block;
-            }
-            
-            .logo {
-                height: 50px;
-                margin: 5px 0;
-            }
-            
-            .products-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-            
-            .product-card {
-                margin: 0 auto;
-                max-width: 400px;
-            }
-            
-            .section-title {
-                margin-bottom: 2rem;
-            }
-            
-            .keen-slider {
-                height: 300px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .nav-container {
-                padding: 0 10px;
-            }
-            
-            .logo {
-                height: 40px;
-            }
-            
-            .hero {
-                padding-top: 60px;
-            }
-            
-            .btn {
-                padding: 0.8rem 1.5rem;
-                font-size: 0.9rem;
-            }
-            
-            .product-card img {
-                height: 200px;
-            }
-            
-            .keen-slider {
-                height: 250px;
-            }
-        }
-    </style>
-</head>
-<!-- Resto del HTML sin cambios -->
-<body>
-    <!-- El resto del contenido HTML permanece igual -->
-    <!-- ... -->
-</body>
-</html>
+body {
+  font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif;
+}
