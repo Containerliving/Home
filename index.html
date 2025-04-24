@@ -292,19 +292,16 @@
             .menu-btn {
                 display: none;
             }
+
+            .nav-container {
+                justify-content: space-between;
+            }
         }
 
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero p {
-                font-size: 1.2rem;
-            }
-            
             .nav-container {
                 padding: 0 15px;
+                justify-content: center;
             }
             
             nav {
@@ -313,12 +310,22 @@
             
             .menu-btn {
                 display: block;
+                position: absolute;
+                right: 15px;
             }
             
             .logo {
-                height: 50px;
-                margin: 5px 0;
+                height: 65px;
+                margin: 8px 0;
                 filter: brightness(1.2);
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
             }
             
             .products-grid {
@@ -346,7 +353,11 @@
             }
             
             .logo {
-                height: 45px;
+                height: 60px;
+            }
+            
+            .menu-btn {
+                right: 10px;
             }
             
             .hero {
